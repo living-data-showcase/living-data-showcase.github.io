@@ -110,9 +110,7 @@
     </style>
 
 
-    <firebase-document
-      location="https://living-data.firebaseio.com/images"
-      data="{{images}}"></firebase-document>
+    <firebase-document location="https://living-data.firebaseio.com/images" data="{{images}}"></firebase-document>
 
     <!--<paper-datetime-picker-item icon="icons:today" placeholder="Set Preview Time (PST)" default-time="09:00" id="previewDate"></paper-datetime-picker-item>-->
 
@@ -139,7 +137,7 @@
       <!--</paper-dropdown-menu-light>-->
 
     <div class="toolbar">
-      <iron-swipeable-pages id="ironPropsCarousel" selected="{{slideIndex}}" transition-duration="0" disabled>
+      <iron-swipeable-pages id="ironPropsCarousel" selected="{{slideIndex}}" transition-duration="0" disabled="">
           <div>
               <div hidden$="[[isFrench]]">
                 <!--<paper-input label="Headline Emphasized Text" value="{{images.image1.linkUrlEn}}"></paper-input>-->
@@ -154,7 +152,7 @@
       </iron-swipeable-pages>
 
       <p>
-        <paper-button raised on-tap="submit" name="submit" id="submit">Save</paper-button>
+        <paper-button raised="" on-tap="submit" name="submit" id="submit">Save</paper-button>
       </p>
 
     </div>
