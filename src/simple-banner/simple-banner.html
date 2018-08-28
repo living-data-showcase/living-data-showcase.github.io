@@ -32,7 +32,7 @@
         margin-left: 24px;
       }
       paper-material.controller {
-        margin: auto;
+        margin: 24px auto auto auto;
         width: 90%;
       }
       .cafe-header { @apply(--paper-font-headline); }
@@ -61,10 +61,10 @@
         height: 100%;
       }
 
-      #controller {
+      .controller {
         margin-top: 24px;
       }
-      #controller * {
+      paper-material * {
         font-family: "Avenir Next for Best Buy", "Open Sans", "Arial" !important;
       }
       @media (max-width: 455px) {
@@ -76,7 +76,7 @@
         }
       }
       @media (min-width: 456px) {
-        #controller {
+        .controller {
           display: none;
         }
       }
@@ -113,6 +113,15 @@
       #submit {
         margin-left: 16px;
       }
+        .yellow-button {
+            color: yellow;
+        }
+        img {
+            width: 100%;
+        }
+      paper-dropdown-menu-light {
+          align-self: center;
+      }
     </style>
 
 
@@ -123,37 +132,41 @@
     <!--<paper-datetime-picker-item icon="icons:today" placeholder="Set Preview Time (PST)" default-time="09:00" id="previewDate"></paper-datetime-picker-item>-->
 
     <paper-material class="preview" elevation="1">
-      <img width=100%" src="{{images.image1.value}}">
+      <img src="{{images.image1.value}}">
       <!--<iron-image style="width: 100%; height: 500px;" sizing="cover" id="target1" src="{{images.image1.value}}"></iron-image>-->
     </paper-material>
 
-    <paper-material elevation="1" id="controller">
-      <h1 class="headline">Content Publish Tool</h1>
+    <paper-material elevation="1" class="controller">
+      <h1 class="headline">Admin Content Publish Tool</h1>
       <!--<paper-typeahead-input max-suggestions="10" placeholder="Category"-->
                              <!--prefetch-url="../../categories.json">-->
       <!--</paper-typeahead-input>-->
 
-      <!--<paper-dropdown-menu-light label="Target Banner">-->
-        <!--<paper-listbox class="dropdown-content" selected="{{slideIndex}}">-->
-          <!--<paper-item>Target 1 - Top Centre</paper-item>-->
-          <!--<paper-item>Target 2 - Top Left</paper-item>-->
-          <!--<paper-item>Target 3 - Top Right</paper-item>-->
-          <!--<paper-item>Target 4 - Middle Left</paper-item>-->
-          <!--<paper-item>Target 5 - Middle Right</paper-item>-->
-          <!--<paper-item>Target 6 - Bottom Left</paper-item>-->
-          <!--<paper-item>Target 7 - Bottom Right</paper-item>-->
-        <!--</paper-listbox>-->
-      <!--</paper-dropdown-menu-light>-->
+      <paper-dropdown-menu-light label="Select an experience" noink noanimations>
+        <paper-listbox class="dropdown-content">
+          <paper-item>{{images.image1.title}}</paper-item>
+            <paper-item>{{images.image2.title}}</paper-item>
+            <paper-item>{{images.image3.title}}</paper-item>
+          <!--<paper-item>Campaign Spending</paper-item>-->
+          <!--<paper-item>GDP Trends, Growth, Breakdown</paper-item>-->
+          <!--<paper-item>CEO vs Average Worker Pay Ratio</paper-item>-->
+          <!--<paper-item>Health Care Expenditures (% of GDP)</paper-item>-->
+          <!--<paper-item>Religions x Immigration Breakdown</paper-item>-->
+          <!--<paper-item>Avg data connection speed</paper-item>-->
+          <!--<paper-item>Avg housing cost</paper-item>-->
+          <!--<paper-item>Avg salary</paper-item>-->
+          <!--<paper-item>% Superfund Sites Cleaned up</paper-item>-->
+          <!--<paper-item>% Investment in renewable energy</paper-item>-->
+          <!--<paper-item>Electricty Access (% total population)</paper-item>-->
+        </paper-listbox>
+      </paper-dropdown-menu-light>
 
     <div class="toolbar">
       <iron-swipeable-pages id="ironPropsCarousel" selected="{{slideIndex}}" transition-duration="0" disabled>
           <div>
-              <div hidden$="[[isFrench]]">
-                <!--<paper-input label="Headline Emphasized Text" value="{{images.image1.linkUrlEn}}"></paper-input>-->
-                <!--<paper-input label="Regular Text" value=""></paper-input>-->
                 <paper-input label="Source" value="{{images.image1.value}}"></paper-input>
-                <paper-input label="Text" value="{{images.image1.linkUrlEn}}"></paper-input>
-                </div>
+                <paper-input label="Text" value="{{images.image1.title}}"></paper-input>
+          </div>
 
               <!--<paper-datetime-picker-item icon="icons:today" placeholder="Start date / time (PST)" default-time="09:00"></paper-datetime-picker-item>-->
               <!--<paper-datetime-picker-item icon="icons:event" placeholder="End date / time (PST)" default-time="09:00"></paper-datetime-picker-item>-->
@@ -161,15 +174,26 @@
       </iron-swipeable-pages>
 
       <p>
-        <paper-button raised on-tap="submit" name="submit" id="submit">Save</paper-button>
+        <paper-button raised on-tap="submit" name="submit" id="submit">Submit</paper-button>
       </p>
 
     </div>
+    </paper-material>
 
-
-
+      <paper-material class="controller">
+          <h1 class="headline">Experience Voting [0:02]</h1>
+          <p>
+            <paper-checkbox>{{images.image1.title}}</paper-checkbox>
+            <paper-checkbox>{{images.image2.title}}</paper-checkbox>
+            <paper-checkbox>{{images.image3.title}}</paper-checkbox>
+          </p>
       </paper-material>
 
+      <paper-material class="controller">
+          <h1 class="headline">Live Debate Word Cloud</h1>
+
+          <img src="https://previews.123rf.com/images/bestdesign36/bestdesign361706/bestdesign36170602715/80910391-concept-or-conceptual-human-rights-political-freedom-or-democracy-word-cloud-isolated-on-background.jpg">
+      </paper-material>
 
   <paper-toast id="mainToast" duration="5000" text="Content Saved!">
     <paper-button on-tap="closeToast" class="yellow-button">Undo</paper-button>
@@ -226,6 +250,29 @@
         console.log(this.imgSrc);
         document.querySelector('firebase-document').image1.value = this.imgSrc.value;
       },
+
+        setSelected: function() {
+          console.log(document.querySelector('firebase-document'));
+          console.log(images.image1.value);
+            // Initialize Firebase
+            // var config = {
+            //     apiKey: "AIzaSyA4eC9YvN0DGPLhwmqnQtBXJm3oHSYsBjw",
+            //     authDomain: "living-data.firebaseapp.com",
+            //     databaseURL: "https://living-data.firebaseio.com",
+            //     projectId: "living-data",
+            //     storageBucket: "living-data.appspot.com",
+            //     messagingSenderId: "1004897924796"
+            // };
+            // firebase.initializeApp(config);
+            // var database = firebase.database();
+            // console.log()
+            // document.querySelector('firebase-document').images.selectedImageIndex.value.set(3);
+            // firebase.database().ref('users/' + userId).set({
+            //     username: name,
+            //     email: email,
+            //     profile_picture : imageUrl
+            // });
+        },
 
       submit: function () {
         console.log('submit!');
